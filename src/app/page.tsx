@@ -34,9 +34,9 @@ export default function Home() {
             {locale === 'en' ? 'Welcome to Our Cafe' : 'بەخێربێن بۆ کافێکەمان'}
           </h2>
           <p className="text-xl text-muted-foreground">
-            {locale === 'en'
-              ? 'Complete management system with bilingual support'
-              : 'سیستەمی بەڕێوەبردنی تەواو بە پشتگیری دوو زمانی'}
+            {locale === 'en' ?
+            'Complete management system with bilingual support' :
+            'سیستەمی بەڕێوەبردنی تەواو بە پشتگیری دوو زمانی'}
           </p>
           <div className="flex gap-4 justify-center">
             <Button size="lg" asChild>
@@ -57,9 +57,9 @@ export default function Home() {
               <Coffee className="h-10 w-10 text-primary mb-2" />
               <CardTitle>{t('menu.title')}</CardTitle>
               <CardDescription>
-                {locale === 'en'
-                  ? 'Browse our menu with bilingual support'
-                  : 'سەیری لیستەکەمان بکە بە پشتگیری دوو زمانی'}
+                {locale === 'en' ?
+                'Browse our menu with bilingual support' :
+                'سەیری لیستەکەمان بکە بە پشتگیری دوو زمانی'}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -74,9 +74,9 @@ export default function Home() {
               <Users className="h-10 w-10 text-primary mb-2" />
               <CardTitle>{t('garson.title')}</CardTitle>
               <CardDescription>
-                {locale === 'en'
-                  ? 'Manage tables and take orders'
-                  : 'بەڕێوەبردنی مێزەکان و وەرگرتنی داواکاری'}
+                {locale === 'en' ?
+                'Manage tables and take orders' :
+                'بەڕێوەبردنی مێزەکان و وەرگرتنی داواکاری'}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -91,9 +91,9 @@ export default function Home() {
               <CreditCard className="h-10 w-10 text-primary mb-2" />
               <CardTitle>{t('cashier.title')}</CardTitle>
               <CardDescription>
-                {locale === 'en'
-                  ? 'Process payments and manage sales'
-                  : 'پرۆسەی پارەدان و بەڕێوەبردنی فرۆشتن'}
+                {locale === 'en' ?
+                'Process payments and manage sales' :
+                'پرۆسەی پارەدان و بەڕێوەبردنی فرۆشتن'}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -108,9 +108,9 @@ export default function Home() {
               <ShieldCheck className="h-10 w-10 text-primary mb-2" />
               <CardTitle>{t('admin.title')}</CardTitle>
               <CardDescription>
-                {locale === 'en'
-                  ? 'Complete system management'
-                  : 'بەڕێوەبردنی تەواوی سیستەم'}
+                {locale === 'en' ?
+                'Complete system management' :
+                'بەڕێوەبردنی تەواوی سیستەم'}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -125,9 +125,9 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t mt-20">
         <div className="container mx-auto px-4 py-8 text-center text-muted-foreground">
-          <p>© 2024 Cafe Management System. All rights reserved.</p>
+          <p className="!whitespace-pre-line">© 2024 Cafe Management System. By: Zanko Muhammad.All rights reserved.</p>
         </div>
       </footer>
-    </div>
-  );
+    </div>);
+
 }
