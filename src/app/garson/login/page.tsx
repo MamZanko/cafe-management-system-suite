@@ -1,30 +1,25 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useI18n } from "@/lib/i18n/i18n-context";
-import { authClient } from "@/lib/auth-client";
-
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
-import { LanguageSwitcher } from "@/components/language-switcher";
-import { ThemeSwitcher } from "@/components/theme-switcher";
-
-import { Users, ArrowLeft } from "lucide-react";
-import { toast } from "sonner";
-import Link from "next/link";
+import { useState } from 'react';
+import { useI18n } from '@/lib/i18n/i18n-context';
+import { authClient } from '@/lib/auth-client';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Checkbox } from '@/components/ui/checkbox';
+import { LanguageSwitcher } from '@/components/language-switcher';
+import { ThemeSwitcher } from '@/components/theme-switcher';
+import { Users, ArrowLeft } from 'lucide-react';
+import { toast } from 'sonner';
+import Link from 'next/link';
 
 export default function GarsonLoginPage() {
-  const router = useRouter();
   const { t } = useI18n();
-
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
     rememberMe: false,
   });
 
@@ -40,28 +35,25 @@ export default function GarsonLoginPage() {
       });
 
       if (error?.code) {
-        toast.error(t("auth.loginError"));
+        toast.error(t('auth.loginError'));
         setLoading(false);
         return;
       }
 
-      toast.success(t("auth.loginSuccess"));
-
-      // 🔥 Small delay then redirect to dashboard
+      toast.success(t('auth.loginSuccess'));
+      
+      // Wait a bit for token to be saved, then redirect with full page load
       setTimeout(() => {
-        setLoading(false);
-        router.push("/garson/dashboard");
+        window.location.href = '/garson/dashboard';
       }, 500);
-
     } catch (error) {
-      toast.error(t("common.error"));
+      toast.error(t('common.error'));
       setLoading(false);
     }
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-muted flex items-center justify-center p-4">
-      
       <div className="absolute top-4 right-4 flex items-center gap-2">
         <LanguageSwitcher />
         <ThemeSwitcher />
@@ -82,16 +74,13 @@ export default function GarsonLoginPage() {
               <Users className="h-8 w-8 text-primary-foreground" />
             </div>
           </div>
-          <CardTitle className="text-2xl font-bold">{t("garson.title")}</CardTitle>
-          <CardDescription>{t("auth.login")}</CardDescription>
+          <CardTitle className="text-2xl font-bold">{t('garson.title')}</CardTitle>
+          <CardDescription>{t('auth.login')}</CardDescription>
         </CardHeader>
-
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
-
-            {/* Email */}
             <div className="space-y-2">
-              <Label htmlFor="email">{t("auth.email")}</Label>
+              <Label htmlFor="email">{t('auth.email')}</Label>
               <Input
                 id="email"
                 type="email"
@@ -102,9 +91,8 @@ export default function GarsonLoginPage() {
               />
             </div>
 
-            {/* Password */}
             <div className="space-y-2">
-              <Label htmlFor="password">{t("auth.password")}</Label>
+              <Label htmlFor="password">{t('auth.password')}</Label>
               <Input
                 id="password"
                 type="password"
@@ -116,32 +104,31 @@ export default function GarsonLoginPage() {
               />
             </div>
 
-            {/* Remember me */}
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="remember"
                 checked={formData.rememberMe}
-                onCheckedChange={(val) =>
-                  setFormData({ ...formData, rememberMe: val as boolean })
+                onCheckedChange={(checked) =>
+                  setFormData({ ...formData, rememberMe: checked as boolean })
                 }
               />
-              <label htmlFor="remember" className="text-sm font-medium">
-                {t("auth.rememberMe")}
+              <label
+                htmlFor="remember"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                {t('auth.rememberMe')}
               </label>
             </div>
 
-            {/* Login button */}
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? t("common.loading") : t("auth.login")}
+              {loading ? t('common.loading') : t('auth.login')}
             </Button>
 
-            {/* Demo credentials */}
             <div className="text-sm text-muted-foreground text-center mt-4 p-4 bg-muted rounded-md">
               <p className="font-medium mb-2">Demo Credentials:</p>
               <p>Email: garson1@cafe.com</p>
               <p>Password: garson123</p>
             </div>
-
           </form>
         </CardContent>
       </Card>
