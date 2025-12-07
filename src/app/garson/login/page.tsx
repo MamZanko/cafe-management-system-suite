@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useI18n } from '@/lib/i18n/i18n-context';
 import { authClient } from '@/lib/auth-client';
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -10,12 +12,15 @@ import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { LanguageSwitcher } from '@/components/language-switcher';
 import { ThemeSwitcher } from '@/components/theme-switcher';
+
 import { Users, ArrowLeft } from 'lucide-react';
 import { toast } from 'sonner';
 import Link from 'next/link';
 
 export default function GarsonLoginPage() {
+  const router = useRouter();
   const { t } = useI18n();
+
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
@@ -41,12 +46,14 @@ export default function GarsonLoginPage() {
       }
 
       toast.success(t('auth.loginSuccess'));
-      
-      // Wait a bit for token to be saved, then redirect with full page load
+
+      // small delay before redirect
       setTimeout(() => {
-        window.location.href = '/garson/dashboard';
+        setLoading(false);
+        router.push('/garson/dashboard');
       }, 500);
-    } catch (error) {
+
+    } catch (err) {
       toast.error(t('common.error'));
       setLoading(false);
     }
@@ -54,6 +61,7 @@ export default function GarsonLoginPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-muted flex items-center justify-center p-4">
+      
       <div className="absolute top-4 right-4 flex items-center gap-2">
         <LanguageSwitcher />
         <ThemeSwitcher />
@@ -77,8 +85,10 @@ export default function GarsonLoginPage() {
           <CardTitle className="text-2xl font-bold">{t('garson.title')}</CardTitle>
           <CardDescription>{t('auth.login')}</CardDescription>
         </CardHeader>
+
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
+
             <div className="space-y-2">
               <Label htmlFor="email">{t('auth.email')}</Label>
               <Input
@@ -86,7 +96,9 @@ export default function GarsonLoginPage() {
                 type="email"
                 placeholder="garson1@cafe.com"
                 value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, email: e.target.value })
+                }
                 required
               />
             </div>
@@ -98,7 +110,9 @@ export default function GarsonLoginPage() {
                 type="password"
                 placeholder="••••••••"
                 value={formData.password}
-                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, password: e.target.value })
+                }
                 required
                 autoComplete="off"
               />
@@ -112,10 +126,7 @@ export default function GarsonLoginPage() {
                   setFormData({ ...formData, rememberMe: checked as boolean })
                 }
               />
-              <label
-                htmlFor="remember"
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              >
+              <label htmlFor="remember" className="text-sm font-medium">
                 {t('auth.rememberMe')}
               </label>
             </div>
@@ -129,6 +140,7 @@ export default function GarsonLoginPage() {
               <p>Email: garson1@cafe.com</p>
               <p>Password: garson123</p>
             </div>
+
           </form>
         </CardContent>
       </Card>
